@@ -24,8 +24,15 @@ function customFilter(arr, callback) {
 
 //3. customReduce
 function customReduce(arr, callback, initialValue) {
-    let accumulator = initialValue;
-    for (let i = 0, len = arr.length; i < len; i++) {
+    let accumulator ;
+    let startIndex=0;
+    if(initialValue !== undefined){
+        accumulator=initialValue
+    }else{
+        accumulator=arr[0];
+        startIndex=1;
+    }
+    for (let i = startIndex, len = arr.length; i < len; i++) {
         accumulator = callback(accumulator, arr[i])
     }
 
@@ -68,10 +75,6 @@ function customGroupBy(arr, callback) {
 
     // check if value is Object
     const clonedObject = {}
-    for (let key in value) {
-        if (value.hasOwnProperty(key))
-            clonedObject[key] = deepClone(value[key])
-    }
     for (let key of Object.keys(value)) {
         clonedObject[key] = deepClone(value[key])
     }
